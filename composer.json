@@ -1,0 +1,15 @@
+{
+    "name": "vendor/u-r-l-shortener-a-p-i",
+    "description": "Description of project URLShortenerAPI.",
+    "authors": [
+        {
+            "name": "klemen",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "slim/slim":"~2.0",
+        "illuminate/database":"5.2.*"
+        
+    }
+}
