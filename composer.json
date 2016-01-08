@@ -7,6 +7,11 @@
             "email": "your@email.here"
         }
     ],
+     "autoload":{
+      "psr-4":{
+        "site\\": "app/site"  
+      }  
+    },
     "require": {
         "slim/slim":"~2.0",
         "illuminate/database":"5.2.*"

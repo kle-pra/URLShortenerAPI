@@ -1,6 +1,7 @@
 <?php
 
 use Slim\Slim;
+use site\model\Link;
 
 ini_set('display_errors', 'On');
 
@@ -17,5 +18,10 @@ require 'database.php';
 
 $app->get('/generate', function() {
     echo 'Generate';
+});
+
+
+$app->get('/', function(){
+    $link=new Link;
 });
 
