@@ -22,6 +22,7 @@ $app->get('/generate', function() {
 
 
 $app->get('/', function(){
-    $link=new Link;
+    $link=Link::where('url','http://duckduckgo.com')->first();
+    var_dump($link);
 });
 
