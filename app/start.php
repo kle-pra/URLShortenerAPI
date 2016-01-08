@@ -15,14 +15,7 @@ $app = new Slim([
 
 
 require 'database.php';
-
-$app->get('/generate', function() {
-    echo 'Generate';
-});
+require 'routes.php';
 
 
-$app->get('/', function(){
-    $link=Link::where('url','http://duckduckgo.com')->first();
-    var_dump($link);
-});
 
