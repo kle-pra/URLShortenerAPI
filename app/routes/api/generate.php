@@ -1,5 +1,5 @@
 <?php
 
-$app->get('/generate', function() use ($app){
+$app->post('/generate', function() use ($app){
     echo "genera2te";
 });
