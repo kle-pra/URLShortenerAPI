@@ -1,5 +1,13 @@
 <?php
 
 $app->get('/:code', function($code) use ($app){
-    echo $code;
+    $link = Link::where('code',$code)->first();
+    
+    if(!$link){
+        $app->notFound();
+    }else{
+        $app->response->redirect($link->url);
+        
+    }
+    
 });
