@@ -7,14 +7,15 @@ ini_set('display_errors', 'On');
 require '../vendor/autoload.php';
 
 $app = new Slim([
-        'config'=>[
-            'baseUrl'=> 'http://localhost/html/URLShortenerAPI/public/'
-        ]
-        
-    
+    'config' => [
+        'baseUrl' => 'http://localhost/html/URLShortenerAPI/public/'
+    ]
         ]);
 
-$app->get('/generate', function(){
+
+require 'database.php';
+
+$app->get('/generate', function() {
     echo 'Generate';
 });
 
