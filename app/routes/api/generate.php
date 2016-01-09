@@ -1,6 +1,7 @@
 <?php
 
 use site\model\Link;
+use site\presenters\ErrorPresenter;
 
 $app->post('/api/generate', function() use ($app) {
     $payload = json_decode($app->request->getBody());
@@ -9,28 +10,14 @@ $app->post('/api/generate', function() use ($app) {
     if (empty($payload) || empty($payload->url)) {
         $app->response->setStatus(400);
 
-        return $app->response->write(
-                        json_encode([
-                    'error' => [
-                        'code' => 1000,
-                        'message' => 'A URL is required'
-                    ]
-                        ])
-        );
+        return $app->response->write(new ErrorPresenter(1001, 'A URL is required.'));
     }
 
     //check if url is valid
     if (!filter_var($payload->url, FILTER_VALIDATE_URL)) {
         $app->response->setStatus(400);
 
-        return $app->response->write(
-                        json_encode([
-                    'error' => [
-                        'code' => 1000,
-                        'message' => 'A valid URL is required'
-                    ]
-                        ])
-        );
+      return $app->response->write(new ErrorPresenter(1002, 'A valid URL is required.'));
     }
 
     //see if url already exists in DB and send existing code
@@ -49,6 +36,7 @@ $app->post('/api/generate', function() use ($app) {
         );
     }
 
+    //Create new link record   
     $newLink = Link::create([
                 'url' => $payload->url
     ]);
