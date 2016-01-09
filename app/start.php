@@ -9,9 +9,9 @@ require '../vendor/autoload.php';
 
 $app = new Slim();
 
-$app->config=[
+$app->config([
         'baseUrl' => 'http://localhost/html/URLShortenerAPI/public'
-    ];
+    ]);
 
 require 'database.php';
 require 'routes.php';

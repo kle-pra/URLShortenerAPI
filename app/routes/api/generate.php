@@ -2,6 +2,7 @@
 
 use site\model\Link;
 use site\presenters\ErrorPresenter;
+use site\presenters\LinkPresenter;
 
 $app->post('/api/generate', function() use ($app) {
     $payload = json_decode($app->request->getBody());
@@ -26,14 +27,7 @@ $app->post('/api/generate', function() use ($app) {
     if ($link) {
         $app->response->setStatus(201);
 
-        return $app->response->write(json_encode([
-                    'url' => $payload->url,
-                    'generated' => [
-                        'url' => $app->config['baseUrl'] . "/" . $link->code,
-                        'code' => $link->code,
-                    ]
-                        ])
-        );
+        return $app->response->write(new LinkPresenter($link));
     }
 
     //Create new link record   
@@ -45,12 +39,5 @@ $app->post('/api/generate', function() use ($app) {
         'code' => base_convert($newLink->id, 10, 36)
     ]);
 
-    return $app->response->write(json_encode([
-                'url' => $payload->url,
-                'generated' => [
-                    'url' => $app->config['baseUrl'] . "/" . $newLink->code,
-                    'code' => $newLink->code,
-                ]
-                    ])
-    );
+    return $app->response->write(new LinkPresenter($newLink));
 });
