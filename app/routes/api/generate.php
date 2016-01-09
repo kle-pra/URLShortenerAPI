@@ -36,7 +36,7 @@ $app->post('/api/generate', function() use ($app) {
     ]);
 
     $newLink->update([
-        'code' => base_convert($newLink->id, 10, 36)
+        'code' => $newLink->generateShortCode()
     ]);
 
     $app->response->setStatus(201);
