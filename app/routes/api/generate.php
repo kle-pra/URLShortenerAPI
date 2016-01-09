@@ -18,7 +18,7 @@ $app->post('/api/generate', function() use ($app) {
     if (!filter_var($payload->url, FILTER_VALIDATE_URL)) {
         $app->response->setStatus(400);
 
-      return $app->response->write(new ErrorPresenter(1002, 'A valid URL is required.'));
+        return $app->response->write(new ErrorPresenter(1002, 'A valid URL is required.'));
     }
 
     //see if url already exists in DB and send existing code
@@ -38,6 +38,8 @@ $app->post('/api/generate', function() use ($app) {
     $newLink->update([
         'code' => base_convert($newLink->id, 10, 36)
     ]);
+
+    $app->response->setStatus(201);
 
     return $app->response->write(new LinkPresenter($newLink));
 });
