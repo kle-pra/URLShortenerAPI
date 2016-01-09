@@ -39,8 +39,7 @@ $app->post('/api/generate', function() use ($app) {
     if ($link) {
         $app->response->setStatus(201);
 
-        return $app->response->write(
-                        json_encode([
+        return $app->response->write(json_encode([
                     'url' => $payload->url,
                     'generated' => [
                         'url' => $app->config['baseUrl'] . "/" . $link->code,
@@ -49,4 +48,21 @@ $app->post('/api/generate', function() use ($app) {
                         ])
         );
     }
+
+    $newLink = Link::create([
+                'url' => $payload->url
+    ]);
+
+    $newLink->update([
+        'code' => base_convert($newLink->id, 10, 36)
+    ]);
+
+    return $app->response->write(json_encode([
+                'url' => $payload->url,
+                'generated' => [
+                    'url' => $app->config['baseUrl'] . "/" . $newLink->code,
+                    'code' => $newLink->code,
+                ]
+                    ])
+    );
 });
